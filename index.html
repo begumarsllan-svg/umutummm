@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Kalp Sistemi 💘</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #ff5f9e, #2b1055);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+}
+
+.popup{
+    background: linear-gradient(135deg, #ff7eb3, #ff758f);
+    color:white;
+    padding:25px;
+    width:90%;
+    max-width:380px;
+    border-radius:25px;
+    text-align:center;
+    animation:pop 0.4s ease;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+@keyframes pop{
+    from{transform:scale(0.6); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+button{
+    background:white;
+    color:#ff4d6d;
+    border:none;
+    padding:12px 22px;
+    font-size:17px;
+    border-radius:20px;
+    margin-top:18px;
+    cursor:pointer;
+}
+
+button:hover{transform:scale(1.05);}
+
+/* ❤️ KALPLER FOTOĞRAFIN ÜSTÜNDE */
+.heart{
+    position:fixed;
+    bottom:-30px;
+    font-size:26px;
+    animation:fly 4s linear forwards;
+    pointer-events:none;
+    z-index:2000;
+}
+
+@keyframes fly{
+    to{
+        transform:translateY(-700px) scale(1.5);
+        opacity:0;
+    }
+}
+
+.toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:#ff4d6d;
+    padding:12px 20px;
+    border-radius:20px;
+    font-weight:bold;
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+    animation:fade 2.5s ease forwards;
+    z-index:3000;
+}
+
+@keyframes fade{
+    0%{opacity:0; transform:translate(-50%,20px);}
+    10%{opacity:1; transform:translate(-50%,0);}
+    90%{opacity:1;}
+    100%{opacity:0;}
+}
+
+img{
+    width:100%;
+    border-radius:18px;
+    margin-top:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Yazıları siyah ve kalın yapma */
+.popup, .popup p, .popup h2 {
+    color: black !important;
+    font-weight: bold !important;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SES -->
+<audio id="hugSound">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_8b0d2f4c8b.mp3">
+</audio>
+
+<div class="overlay" id="app"></div>
+
+<script>
+const app = document.getElementById("app");
+
+function popup(html){
+    app.innerHTML = `<div class="popup">${html}</div>`;
+}
+
+popup(`
+<h2>⚠️ SİSTEM UYARISI</h2>
+<p>Kalp sistemi beklenmeyen bir kişiye bağlandı 💥</p>
+<button onclick="detay()">Detayları Gör 👀</button>
+`);
+
+function detay(){
+popup(`
+<h2>🔍 İnceleme Başladı</h2>
+<p>
+👤 <b>Umut</b><br><br>
+💘 Gülüş: Tehlikeli<br>
+🎧 Ses: Bağımlılık yapıyor<br>
+🫀 Etki: Aklı başından alıyor
+</p>
+<button onclick="sebep()">Devam Et 💭</button>
+`);
+}
+
+function sebep(){
+popup(`
+<h2>🤯 Kararsızlık</h2>
+<p><b>Aşık olmamak için:</b></p>
+<p>• Aklı başından alıyor<br>• Fazla bağlanırsın<br>• Kalp riski var</p>
+<hr>
+<p><b>Aşık olmak için:</b></p>
+<p>Umut<br>Umut<br>Yine Umut 😌</p>
+<button onclick="final()">Karşı koymayı dene 😈</button>
+`);
+}
+
+function final(){
+popup(`
+<h2>💌 RESMÎ AÇIKLAMA</h2>
+<p>Bu kalp Umut adına kayıtlıdır ❤️<br>
+İade edilemez.<br>
+Ömür boyu geçerlidir.</p>
+
+<div style="background:rgba(255,255,255,0.2);padding:12px;border-radius:15px;margin-top:10px;">
+Aşkım seni sevdiğimi biliyosun dimiiiiiii?🤭🤭
+</div>
+
+<img src="foto.png">
+
+<button onclick="saril()">Sarıl 🤍</button>
+`);
+}
+
+function saril(){
+
+    const hugSound = document.getElementById("hugSound");
+
+    // SESİ GARANTİ ÇALDIRMA
+    hugSound.pause();
+    hugSound.currentTime = 0;
+
+    const playPromise = hugSound.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            // başarı
+        }).catch(() => {
+            // iOS bazen izin vermez
+        });
+    }
+
+    // TELEFON TİTREŞİM (Android)
+    if (navigator.vibrate) {
+        navigator.vibrate([200,100,200,100,300]);
+    }
+
+    // TOAST
+    const toast=document.createElement("div");
+    toast.className="toast";
+    toast.innerHTML="🤍 Sarılma alındı";
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(),2500);
+
+    // KIRMIZI KALPLER
+    let count=0;
+    const interval=setInterval(()=>{
+        if(count>=35){
+            clearInterval(interval);
+            return;
+        }
+        count++;
+
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*window.innerWidth+"px";
+        h.style.fontSize=(22+Math.random()*18)+"px";
+
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+    },180);
+}
+</script>
+
+</body>
+</html>
